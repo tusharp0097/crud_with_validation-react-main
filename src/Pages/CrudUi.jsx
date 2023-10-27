@@ -143,31 +143,43 @@ const CrudUi = () => {
                                     </div>
                                     <div className="col-md-6">
                                         <label htmlFor="">Phone:</label>
-                                        <input value={phone} onChange={(e) => {
-                                            let value = e.target.value;
-                                            setPhone(value);
-                                            if (phone.length < 9 || phone.length > 9) {
-                                                seterrphone(true)
-                                            } else {
-                                                seterrphone(false)
-                                            }
-                                        }} type="number" className={`form-control ${errphone ? 'is-invalid' : ''}`} />
-                                        <div>{errphone ? <p style={{ color: "red" }}>Phone number is not valid</p> : ""}</div>
+                                        <input
+                                            value={phone}
+                                            onChange={(e) => {
+                                                let value = e.target.value;
+                                                if (value.length <= 10) {
+                                                    setPhone(value);
+                                                }
+                                            }}
+                                            type="number"
+                                            className={`form-control ${phone.length > 10 ? 'is-invalid' : ''}`}
+                                        />
+                                        <div>{phone.length > 10 ? <p style={{ color: "red" }}>Only 10 digits allowed</p> : ""}</div>
                                     </div>
 
+
+
                                     <div className="col-md-6">
-                                        <label htmlFor="">Age:</label>
-                                        <input value={age} onChange={(e) => {
-                                            let value = e.target.value;
-                                            setAge(value);
-                                            if (value < 18) {
-                                                seterrage(true)
-                                            } else {
-                                                seterrage(false)
-                                            }
-                                        }} type="Number" className={`form-control ${errage ? 'is-invalid' : ''}`} />
-                                        <div>{errage ? <p style={{ color: "red" }}>age is not valid</p> : ""}</div>
+                                        <label htmlFor="age">Age:</label>
+                                        <input
+                                            value={age}
+                                            onChange={(e) => {
+                                                let value = e.target.value;
+                                                if (/^\d{0,2}(\.\d{0,2})?$/.test(value)) {
+                                                    setAge(value);
+                                                    seterrage(false);
+                                                } else {
+                                                    seterrage(true);
+                                                }
+                                            }}
+                                            type="text"
+                                            className={`form-control ${errage ? 'is-invalid' : ''}`}
+                                        />
+                                        <div>
+                                            {errage ? <p style={{ color: "red" }}>Age is not valid</p> : ""}
+                                        </div>
                                     </div>
+
 
                                     <div className="col-md-6">
                                         <label htmlFor="">Email:</label>
